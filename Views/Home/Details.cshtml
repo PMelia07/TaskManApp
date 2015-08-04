@@ -1,0 +1,78 @@
+﻿@model TaskManApp.Models.TaskList
+@{
+    ViewBag.Title = "Details";
+}
+
+<div>
+    <br />
+    <h4>Task List for @Model.Name</h4>
+    <div class="table-responsive">
+        <!--<div class="table">-->
+        <table class="table">
+            <tr>
+                <th class="alert-info">Task:</th>
+
+                <th class="alert-info">@Html.DisplayFor(model => model.Name)</th>
+                <th>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-toggle="dropdown">
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li role="presentation" class="dropdown-header">Options</li>
+                            <li><a href="@Url.Action("Edit", new { id = Model.ID })"><span class="glyphicon glyphicon-pencil"></span>   Edit @Model.Name</a></li>
+                            <li><a href="@Url.Action("Delete", new { id = Model.ID })"><span class="glyphicon glyphicon-trash"></span>  Delete @Model.Name</a></li>
+                            <li>@Html.ActionLink("Back to Home", "Index")</li>
+                        </ul>
+                    </div>
+                </th>
+            </tr>
+        </table>
+
+        @Html.ActionLink("Add Task", "Create", "Task", new { tlistid = Model.ID }, new { @class = "btn btnnew btn-primary" })
+        <br />
+        <br />
+        @if (Model.Task != null)
+        {
+            <div class="table">
+                <table class="table table-striped">
+                    <tr>
+                        <th>Name</th>
+                        <th>Start Date</th>
+                        <th>Finish Date</th>
+                        <th></th>
+                    </tr>
+                    @foreach (var t in Model.Task)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => t.TaskName)</td>
+                            <td>@Html.DisplayFor(modelItem => t.StartDate)</td>
+                            <td>@Html.DisplayFor(modelItem => t.FinishDate)</td>
+                            <td>
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-toggle="dropdown">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li role="presentation" class="dropdown-header">Options</li>
+                                        <li><a href="@Url.Action("Edit", "Task", new { id = t.ID})"><span class="glyphicon glyphicon-pencil"></span>  Edit @Model.Name</a></li>
+                                        <li><a href="@Url.Action("Delete", "Task",  new { id = t.ID })"><span class="glyphicon glyphicon-trash"></span> Delete @Model.Name</a></li>
+                                        <li>@Html.ActionLink("Back to List", "Index")</li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+
+                    }
+                </table>
+            </div>
+        }
+        else
+        {
+            <div class="table">
+                <table class="table table-striped">
+                    <tr class="alert-warning" style="align-content:center"><td>NO TASKS FOUND</td></tr>
+                </table>
+            </div>
+        }
+    </div>

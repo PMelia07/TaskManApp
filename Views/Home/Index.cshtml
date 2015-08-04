@@ -1,0 +1,38 @@
+﻿@model IEnumerable<TaskManApp.Models.TaskList>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary", style = "float: right; margin-top: -27px;" })
+</p>
+<br/>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            <a href="@Url.Action("Details", new { id = item.ID })">
+                <div class="id">
+                    <span>@item.Name</span>
+                </div>
+            </a>
+        </td>
+    </tr>
+}
+
+</table>
+
+<style>
+    a:hover {
+        background-color: #FFCC00;
+    }
+</style>
